@@ -50,7 +50,6 @@ while True:
                     }
                 }
             ])
-            print (db_point[0]['time'])
             client.write_points(db_point)
 
 
