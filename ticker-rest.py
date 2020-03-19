@@ -13,6 +13,15 @@ symbol2=sys.argv[2]
 logfile=f'{symbol1}-{symbol2}.log'
 url=f'https://cex.io/api/trade_history/{symbol1}/{symbol2}/'
 
+'''
+if len(sys.argv) > 3:
+    proxies={ 'http': 'http://10.48.202.79:8888'
+              'https': 'http://10.48.202.79:8888'
+            }
+else:
+'''
+proxies={}
+
 ptr=0
 t={}
 
@@ -21,7 +30,7 @@ client.create_database('trade_history_cex')
 
 while True:
     try:
-        t=json.loads(r.get(url).text)
+        t=json.loads(r.get(url, proxies=proxies).text)
     except:
         pass
     cnt, c_date = 0,0
