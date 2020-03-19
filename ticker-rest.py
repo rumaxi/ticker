@@ -41,7 +41,7 @@ while True:
             db_point = ([
                 {
                     "measurement": f"CEX-{symbol1}-{symbol2}",
-                    "time": f"{datetime.datetime.fromtimestamp(int(c_date)).isoformat()}",
+                    "time": f"{(datetime.datetime.fromtimestamp(int(c_date))  - datetime.timedelta(hours=3)).isoformat()}",
                     "fields": {
                         "type": c_type,
                         "date": c_date,
@@ -50,6 +50,7 @@ while True:
                     }
                 }
             ])
+            print (db_point[0]['time'])
             client.write_points(db_point)
 
 
