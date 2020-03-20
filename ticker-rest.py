@@ -1,6 +1,7 @@
 import requests as r 
 import datetime
 import random
+import string
 import json
 import time
 import sys
@@ -35,13 +36,15 @@ while True:
         pass
     cnt, c_date = 0,0
     for tt in t[::-1]:
-        c_type, c_date, c_amount, c_price, _ = tt.values()
+        c_type, c_date, c_amount, c_price, tid = tt.values()
         if int(c_date) > ptr:
             cnt+=1
+            nonce=''.join(random.choice(string.ascii_lowercase) for i in range(8))
             db_point = ([
                 {
                     "measurement": f"CEX-{symbol1}-{symbol2}",
                     "time": f"{(datetime.datetime.fromtimestamp(int(c_date))  - datetime.timedelta(hours=3)).isoformat()}",
+                    "tags": { "nonce": f"{nonce}" },
                     "fields": {
                         "type": c_type,
                         "date": c_date,
